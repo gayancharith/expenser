@@ -1,0 +1,30 @@
+{
+  "name": "praxis-sample-01",
+  "version": "1.0.0",
+  "description": "A sample app created using praxis",
+  "main": "src/main.js",
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:hliyan/praxis-samples.git"
+  },
+  "author": "Hasitha Liyanage",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hliyan/praxis-samples/issues"
+  },
+  "homepage": "https://github.com/hliyan/praxis-samples",
+  "dependencies": {
+    "praxis": "file:../../praxis"
+  },
+  "devDependencies": {
+    "babel-core": "^5.8.22",
+    "babel-loader": "^5.3.2",
+    "node-libs-browser": "^0.5.2",
+    "webpack": "^1.11.0",
+    "webpack-dev-server": "^1.10.1"
+  }
+}
