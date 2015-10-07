@@ -31,6 +31,7 @@ export default class ExpenseForm extends React.Component {
 	handleExpenseFormSubmit() {
 		let amount = parseInt(this.state.amount);
 		this.state.amount = '';
+		let description = this.refs.desc.getDOMNode().value;
 		console.log('before submit ' + amount);
 
 		console.log(this.props.formType);
@@ -40,7 +41,7 @@ export default class ExpenseForm extends React.Component {
 			amount = -Math.abs(amount);
 		}
 
-		Dispatcher.dispatch({ action: 'createExpense', data: { text: amount } });
+		Dispatcher.dispatch({ action: 'createExpense', data: { text: amount, desc: description } });
 		this.refs.amount.getDOMNode().value = '';
 		this.refs.desc.getDOMNode().value = '';
 	}

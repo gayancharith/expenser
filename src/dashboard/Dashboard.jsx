@@ -8,8 +8,7 @@ import Header from '../components/header';
 export default class Dashboard extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {displayForm: false, form: ''};
-        this.state.expenses = Dispatcher.get('expenses');
+        this.state = {displayForm: false, form: '', expenses: Dispatcher.get('expenses')};
         console.log(Dispatcher.get('expenses'));
         console.log('expenses => ' + this.state.expenses);
 
