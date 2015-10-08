@@ -27,15 +27,15 @@ export default class Dashboard extends React.Component {
         this.onClose = () => {
             this.handleClose();
         }
+
+        this.hideForm = () => {
+            this.hideForms();
+        }
     }
 
     render() {
+        console.log(this.state.expenses);
         let formTitle = <Header formType={this.state.form} />;
-        // if (this.state.form === 'income') {
-        //     formTitle = <Header formType={this.state.form} />
-        // } else if (this.state.form === 'income') {
-        //     formTitle = '<h2>Add Expense</h2>';
-        // }
 
         return (
         	<div>
@@ -51,6 +51,7 @@ export default class Dashboard extends React.Component {
                             onSubmit={this.onSubmit}
                             onClose={this.onClose}
                             formType={this.state.form}
+                            hideForm={this.hideForm}
                         />
                     : null
                 }

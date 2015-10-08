@@ -1,14 +1,14 @@
 export default [
     {
+        label: 'About',
+        link: '/about'
+    },
+    {
         label: 'Home',
         link: '/'
     },
     {
-    	label: 'About',
-    	link: '/about'
-    },
-    {
     	label: 'Details',
     	link: '/details'
-    }
+    }    
 ];

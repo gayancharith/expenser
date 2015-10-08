@@ -3,7 +3,7 @@ import { React, Dispatcher } from 'praxis';
 export default class ExpenseForm extends React.Component {
 	constructor(props) {
 		super(props);
-		console.log('form constructor callled');
+		console.log('form constructor callled >>');
 
 		this.onStoreChange = () => {
             this.forceUpdate();

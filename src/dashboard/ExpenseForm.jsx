@@ -8,12 +8,19 @@ export default class ExpenseForm extends React.Component {
 
 		this.onSubmit = () => {
 			this.handleExpenseFormSubmit();
+			this.props.hideForm;
 		}
 
 		this.onChange = (value) => {
 			let amount = this.refs.amount.getDOMNode().value;
             this.setState({ amount: amount });
         };
+	}
+
+	componentWillMount() {
+		this.state = {hideForm: true};
+
+
 	}
 
 	render() {
@@ -29,20 +36,26 @@ export default class ExpenseForm extends React.Component {
 	}
 
 	handleExpenseFormSubmit() {
-		let amount = parseInt(this.state.amount);
-		this.state.amount = '';
+		let amount = parseInt(this.state.amount);		
 		let description = this.refs.desc.getDOMNode().value;
-		console.log('before submit ' + amount);
-
+		console.log('before submit ' + amount);		
 		console.log(this.props.formType);
-		if (this.props.formType === 'income') {
-			amount = amount;
-		} else if (this.props.formType === 'expense') {
-			amount = -Math.abs(amount);
-		}
 
-		Dispatcher.dispatch({ action: 'createExpense', data: { text: amount, desc: description } });
-		this.refs.amount.getDOMNode().value = '';
-		this.refs.desc.getDOMNode().value = '';
+		if (amount === '' || isNaN(amount)) {
+			alert('Please add a number for amount');
+		} else if (description.trim() === '') {
+			alert('Please add a description');
+		} else {
+			if (this.props.formType === 'income') {
+				amount = amount;
+			} else if (this.props.formType === 'expense') {
+				amount = -Math.abs(amount);
+			}
+
+			Dispatcher.dispatch({ action: 'createExpense', data: { text: amount, desc: description } });
+			this.state.amount = '';
+			this.refs.amount.getDOMNode().value = '';
+			this.refs.desc.getDOMNode().value = '';
+		}					
 	}
 }
