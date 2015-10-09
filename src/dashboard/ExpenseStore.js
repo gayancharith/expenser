@@ -7,7 +7,7 @@ export default class ExpenseStore extends ArrayStore {
     }
 
     createExpense(action) {
-        console.log('actino is called');
+        console.log('action is called');
         console.log(action.data);
         this._insert(action.data);
         this.emit('change');

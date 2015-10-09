@@ -8,9 +8,8 @@ import Header from '../components/header';
 export default class Dashboard extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {displayForm: false, form: '', expenses: Dispatcher.get('expenses')};
+        this.state = {displayForm: false, expenses: Dispatcher.get('expenses')};
         console.log(Dispatcher.get('expenses'));
-        console.log('expenses => ' + this.state.expenses);
 
         this.onAddIncome = () => {
             this.handleAddIncome();
@@ -34,8 +33,8 @@ export default class Dashboard extends React.Component {
     }
 
     render() {
-        console.log(this.state.expenses);
         let formTitle = <Header formType={this.state.form} />;
+        let onAddIncome = () => { this.handleAddIncome(); };
 
         return (
         	<div>
@@ -43,34 +42,30 @@ export default class Dashboard extends React.Component {
 	        	<Income onClick={this.onAddIncome}/>
 	        	<Expense onClick={this.onAddExpense}/>
                 <br /><br /><hr />
-                {
-                    (this.state.displayForm) ?
-                        // <Header formType={this.state.form} />
-                        <ExpenseForm 
-                            expenses={this.state.expenses}
-                            onSubmit={this.onSubmit}
-                            onClose={this.onClose}
-                            formType={this.state.form}
-                            hideForm={this.hideForm}
-                        />
-                    : null
-                }
+                <ExpenseForm 
+                    expenses={this.state.expenses}
+                    onSubmit={this.onSubmit}
+                    onClose={this.onClose}
+                    formType={this.state.form}
+                    hideForm={this.hideForm}
+                    ref='expeneceForm'
+                />
                 <ExpenseSummary expenses={this.state.expenses} />	        	
 	        </div>
         );
     }
 
     handleAddIncome() {
-        this.setState({displayForm: true, form: 'income'});
-        console.log(this.state.displayForm);
-    }
-
-    handleClose() {
-        this.setState({displayForm: false});        
+        this.setState({form: 'income'});
+        this.refs.expeneceForm.displayForm();
     }
 
     handleAddExpense() {
-        console.log('aaaa');
-        this.setState({displayForm: true, form: 'expense'});
+        this.setState({form: 'expense'});
+        this.refs.expeneceForm.displayForm();
+    }
+
+    hideForms() {
+        this.setState({displayForm: false});
     }
 }

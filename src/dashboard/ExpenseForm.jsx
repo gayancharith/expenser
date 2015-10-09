@@ -3,43 +3,58 @@ import { React, Dispatcher } from 'praxis';
 export default class ExpenseForm extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {amount: ''};
-		console.log('form constructor callled');
+
+		this.state = {
+			displayForm: true
+		}
 
 		this.onSubmit = () => {
 			this.handleExpenseFormSubmit();
-			this.props.hideForm;
 		}
 
-		this.onChange = (value) => {
-			let amount = this.refs.amount.getDOMNode().value;
-            this.setState({ amount: amount });
-        };
+		this.onClose = () => {
+			this.handleClose();
+		}
+	}
+
+	displayForm() {
+		this.setState({ displayForm: true });
 	}
 
 	componentWillMount() {
-		this.state = {hideForm: true};
-
-
+		this.setState({displayForm: false});
 	}
 
 	render() {
-		console.log(this.state.amount);
+		let formHideStyle = {};
+		let formState = true;
+		if(!this.state.displayForm){
+			formHideStyle = {
+				display: 'none'
+			}
+		} else {
+			formHideStyle = {
+				display: 'block'
+			}
+		}
+
 		return (
-			<form id="expenseForm" ref="expenseForm"> 				
-				<input value={this.state.amount} onChange={this.onChange} ref="amount" type="text" placeholder="Amount" /><br />
+			<form id="expenseForm" ref="expenseForm" style={formHideStyle}> 				
+				<input ref="amount" type="text" placeholder="Amount" /><br />
 				<input ref="desc" type="text" placeholder="Add Description" /><br />
 				<input ref="submit" value="Submit" type="submit" onClick={this.onSubmit} />
-				<button ref="close" onClick={this.props.onClose}>Close</button>						
+				<button ref="close" onClick={this.onClose}>Close</button>						
 			</form>
 		);
 	}
 
+	handleClose () {
+		this.setState({displayForm: false});		
+	}
+
 	handleExpenseFormSubmit() {
-		let amount = parseInt(this.state.amount);		
+		let amount = this.refs.amount.getDOMNode().value;		
 		let description = this.refs.desc.getDOMNode().value;
-		console.log('before submit ' + amount);		
-		console.log(this.props.formType);
 
 		if (amount === '' || isNaN(amount)) {
 			alert('Please add a number for amount');
@@ -53,9 +68,9 @@ export default class ExpenseForm extends React.Component {
 			}
 
 			Dispatcher.dispatch({ action: 'createExpense', data: { text: amount, desc: description } });
-			this.state.amount = '';
 			this.refs.amount.getDOMNode().value = '';
 			this.refs.desc.getDOMNode().value = '';
+			this.setState({ displayForm: false})
 		}					
 	}
 }

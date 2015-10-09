@@ -19,12 +19,8 @@ export default class ExpenseForm extends React.Component {
     }
 
 	render() {
-		console.log('hellll');
-		console.log(this.props.expenses);
 		var expenseAmount = 0;
 		this.props.expenses.forEach(function(expense) {
-            console.log('aaa');
-            console.log(expense.text);
             expenseAmount += parseInt(expense.text);
         });
         
