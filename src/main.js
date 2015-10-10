@@ -1,21 +1,16 @@
 import  { React, Router, Dispatcher }  from 'praxis';
-import ExpenseStore from './dashboard/ExpenseStore';
+import ExpenseStore from './expense/ExpenseStore';
 import App from './app/App';
-import Dashboard from './dashboard/Dashboard';
 import Expense from './expense/Index';
-import Income from './income/Index';
+import Income from './expense/Income';
 import About from './about/About';
 import Details from './details/Index';
 
 let routes = [{
     path: '/',
     component: App,
-    indexRoute: { component: Dashboard },
+    indexRoute: { component: Details },
     childRoutes: [
-	    {
-	    	path: 'about',
-	    	component: About
-	    },
 	    {
 	    	path: 'details',
 	    	component: Details

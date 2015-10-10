@@ -1,10 +1,6 @@
 export default [
     {
-        label: 'Home',
-        link: '/'
-    },
-    {
-    	label: 'Details',
+    	label: 'Summary',
     	link: '/details'
     },
     {

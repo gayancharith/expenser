@@ -11,13 +11,13 @@ export default class Expense extends React.Component {
     render() {
         return (
             <div>
-                <h1>Expenses</h1>   <br/><br/><hr/>
+                <h1>Income</h1>   <br/><br/><hr/>
 
-            	<h2>Add Expense</h2>   <br/>         
-                <ExpenseForm type="expense" />   <br/><br/><hr/>
+            	<h2>Add Income</h2>   <br/>         
+                <ExpenseForm type="income" />   <br/><br/><hr/>
 
-                <h2>Total Expense</h2> <br />
-                <TotalExpense type="expense" expenses={this.state.expenses} />
+                <h2>Total Income</h2> <br />
+                <TotalExpense type="income" expenses={this.state.expenses} />
             </div>
         );
     }

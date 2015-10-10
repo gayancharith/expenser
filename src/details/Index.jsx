@@ -1,14 +1,10 @@
 import { React, Dispatcher } from 'praxis';
-import ExpenseDetail from './ExpenseDetail'
-import IncomeDetail from './IncomeDetail'
-import ExpenseHeader from '../components/header';
-import IncomeHeader from '../components/incomeHeader';
+import Detail from './Details';
 
 export default class Expense extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {expenseDetails: Dispatcher.get('expenses')};
-		console.log('form constructor callled');
 
 		this.onStoreChange = () => {
             this.forceUpdate();
@@ -24,24 +20,34 @@ export default class Expense extends React.Component {
     }
 
 	render() {
-		var expensesArray = [<ExpenseHeader />];
-		var incomeArray = [<IncomeHeader />];
+		let tableStyle = {
+			border: '1px solid black',			
+			borderCollapse: 'collapse'
+		};
+		let expensesArray = [];
+		let incomeArray = [];
+		let totalAmount = 0;
 		
-		this.state.expenseDetails.forEach(function(expense) {
-			let amount = 0;
+		this.state.expenseDetails.forEach((expense) => {
+			let amount = parseInt(expense.amount);
 
-			if (parseInt(expense.text) < 0) {
-				amount = Math.abs(parseInt(expense.text));
-				expensesArray.push(<ExpenseDetail key={expense.key} amount={amount} desc={expense.desc}/>);
+			if (expense.type === 'expense') {
+				totalAmount -= amount;
+				expensesArray.push(<Detail key={expense.key} amount={amount} desc={expense.desc}/>);
 			} else {
-				incomeArray.push(<IncomeDetail key={expense.key} amount={expense.text} desc={expense.desc}/>);
+				totalAmount += amount;
+				incomeArray.push(<Detail key={expense.key} amount={amount} desc={expense.desc}/>);
 			}            
         });
-		expensesArray = expensesArray.concat(incomeArray);
+
 		return (
 			<div>
-				<h1>Expense Report</h1>
-				<ul>{expensesArray}</ul>
+				<h1>Expense Summary Report</h1> <br/><hr/>
+				<h3>Total Income:  {totalAmount}</h3> <br/><hr/>
+				<h3>Income Details</h3> <br/>
+				<table width="40%" style={tableStyle}>{incomeArray}</table>  <br/><hr/>
+				<h3>Expense Details</h3> <br/>
+				<table width="40%" style={tableStyle}>{expensesArray}</table>
 			</div>
 		);
 	}
